@@ -3,7 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.endpoints import video
 
-app = FastAPI()
+app = FastAPI(
+    version="0.1",
+    title="Pose Estimation API",
+    description="API for pose estimation using MediaPipe and YOLO",
+)
 
 app.add_middleware(
     CORSMiddleware,
