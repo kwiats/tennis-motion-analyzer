@@ -1,0 +1,13 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.home-container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}

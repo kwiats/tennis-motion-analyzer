@@ -1,0 +1,18 @@
+.processed-file-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.processed-file-container h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.processed-file-container video {
+  width: 100%;
+  max-width: 600px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
