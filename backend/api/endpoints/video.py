@@ -5,6 +5,7 @@ import numpy as np
 from fastapi import APIRouter, File, UploadFile, Request
 from fastapi.responses import JSONResponse, FileResponse
 
+from config import UPLOAD_DIR, PROCESSED_DIR
 from ml.estimators.media_pipe_estimator import MediaPipePoseEstimator
 
 router = APIRouter()
@@ -40,15 +41,12 @@ async def process_image(request: Request):
 
 @router.post("/upload_video")
 async def upload_video(video: UploadFile = File(...)):
-    upload_dir = "static/uploads"
-    processed_dir = "static/processed"
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    os.makedirs(PROCESSED_DIR, exist_ok=True)
 
-    os.makedirs(upload_dir, exist_ok=True)
-    os.makedirs(processed_dir, exist_ok=True)
-
-    input_path = os.path.join(upload_dir, video.filename)
+    input_path = os.path.join(UPLOAD_DIR, video.filename)
     output_path = os.path.join(
-        processed_dir, "processed_" + os.path.splitext(video.filename)[0] + ".mp4"
+        PROCESSED_DIR, "processed_" + os.path.splitext(video.filename)[0] + ".mp4"
     )
 
     with open(input_path, "wb+") as f:
