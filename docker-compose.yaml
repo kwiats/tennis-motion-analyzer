@@ -25,67 +25,32 @@ services:
     restart: always
 
   redis:
-    image: redis:6
+    image: redis:latest
     ports:
       - "6379:6379"
     restart: always
 
+  api:
+    build:
+      context: ./backend/src
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/src:/src
+    ports:
+      - "8000:80"
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+
   web:
     build:
-      context: backend/app
-      dockerfile: backend/app/Dockerfile
-    environment:
-      - DATABASE_NAME=mydatabase
-      - DATABASE_USER=myuser
-      - DATABASE_PASS=mypassword
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - CELERY_BROKER_REDIS_URL=redis://redis:6379/0
+      context: ./frontend
+      dockerfile: Dockerfile
     volumes:
-      - .:/app
+      - ./frontend:/app
     ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-      - redis
-    restart: always
-
-  celery-worker:
-    build:
-      context: backend/app
-    command: celery -A core worker --loglevel=info
-    environment:
-      - DATABASE_NAME=mydatabase
-      - DATABASE_USER=myuser
-      - DATABASE_PASS=mypassword
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - CELERY_BROKER_REDIS_URL=redis://redis:6379/0
-    volumes:
-      - .:/app
-    depends_on:
-      - redis
-      - web
-      - postgres
-    restart: always
-
-  celery-beat:
-    build:
-      context: backend/app
-    command: celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    environment:
-      - DATABASE_NAME=mydatabase
-      - DATABASE_USER=myuser
-      - DATABASE_PASS=mypassword
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - CELERY_BROKER_REDIS_URL=redis://redis:6379/0
-    volumes:
-      - .:/app
-    depends_on:
-      - redis
-      - web
-      - postgres
+      - "4200:4200"
     restart: always
 
 volumes:
