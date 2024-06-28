@@ -2,9 +2,9 @@ from pydantic.v1 import BaseSettings
 
 
 class GlobalConfig(BaseSettings):
-    yolo_model: str = "yolov5s"
-    upload_dir: str = "static/uploads"
-    processed_dir: str = "static/processed"
+    YOLO_MODEL: str = "yolov5s"
+    UPLOAD_DIR: str = "static/uploads"
+    PROCESSED_DIR: str = "static/processed"
 
     class Config:
         env_file = ".env"
