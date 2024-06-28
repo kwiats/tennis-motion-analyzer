@@ -14,10 +14,14 @@ class EstimateCreate(EstimateBase):
     pass
 
 
+class EstimateUpdate(EstimateBase):
+    pass
+
+
 class Estimate(EstimateBase):
     id: int
     input_path: str
     output_path: str
 
     class Config:
-        orm_mode: bool = True
+        from_attributes: bool = True

@@ -12,13 +12,12 @@ tags_metadata = [
 ]
 
 app = FastAPI(
+    root_path="/api",
     version="0.1",
     title="Pose Estimation API",
     description="API for pose estimation using MediaPipe and YOLO",
     openapi_tags=tags_metadata,
 )
-
-# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
