@@ -37,3 +37,12 @@ To get started with the Tennis Motion Analyzer, follow these steps:
     ```bash
     docker-compose up --build -d
     ```
+
+
+## Usage API
+
+The Tennis Motion Analyzer offers a powerful API to interact with the application programmatically. Here's how to set it up and use it.
+
+### Install Bruno
+
+To interact with the API, we recommend using [Bruno](https://www.usebruno.com/), a modern API client.
