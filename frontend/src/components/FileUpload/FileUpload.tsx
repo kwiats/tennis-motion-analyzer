@@ -15,7 +15,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setFileName(event.target.files[0].name);
-      onFileChange(event); 
+      onFileChange(event);
     }
   };
 
