@@ -30,5 +30,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(video.router, prefix="/video", tags=["video"])
 app.include_router(estimator_router, prefix="/estimates", tags=["estimates"])
