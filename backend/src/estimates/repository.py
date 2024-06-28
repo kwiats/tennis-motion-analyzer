@@ -6,19 +6,19 @@ from src.estimates.schemas import EstimateUpdate
 
 
 class EstimatesRepository:
-    def get_estimates(self, db: Session):
+    def get_estimates(self, db: Session) -> list[Estimate]:
         try:
             return db.query(Estimate).all()
         except Exception:
             raise
 
-    def get_estimate_by_id(self, estimate_id: int, db: Session):
+    def get_estimate_by_id(self, estimate_id: int, db: Session) -> Estimate:
         try:
             return db.query(Estimate).filter(Estimate.id == estimate_id).one_or_none()
         except Exception:
             raise
 
-    def add_estimate(self, estimates, db: Session):
+    def add_estimate(self, estimates: Estimate, db: Session) -> Estimate:
         try:
             db.add(estimates)
             db.commit()
@@ -30,7 +30,7 @@ class EstimatesRepository:
 
     def update_estimate(
         self, estimate: Estimate, update_data: EstimateUpdate, db: Session
-    ):
+    ) -> Estimate:
         try:
             for key, value in update_data.dict().items():
                 setattr(estimate, key, value)
@@ -44,9 +44,8 @@ class EstimatesRepository:
                 detail=f"An error occurred while updating the estimate: {str(e)}",
             )
 
-    def delete_estimate(self, estimate_id, db: Session):
+    def delete_estimate(self, estimate: Estimate, db: Session) -> Estimate:
         try:
-            estimate = db.query(Estimate).filter(Estimate.id == estimate_id).one()
             db.delete(estimate)
             db.commit()
             return estimate
