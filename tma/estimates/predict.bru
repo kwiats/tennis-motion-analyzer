@@ -1,0 +1,15 @@
+meta {
+  name: predict
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}api/estimates/predict
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  file: @file(/Users/pawelkwiatkowski/iga-forehand.mp4)
+}

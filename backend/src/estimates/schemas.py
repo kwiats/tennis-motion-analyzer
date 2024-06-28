@@ -1,13 +1,17 @@
+from typing import Optional
+
 from pydantic import BaseModel
+
+from src.estimates.enums import Gender, ActivityLevel, ImpactType
 
 
 class EstimateBase(BaseModel):
-    sex: str
-    age: int
-    height: float
-    weight: float
-    activity_level: str
-    impact_type: str
+    gender: Optional[Gender] = None
+    age: Optional[int] = None
+    height: Optional[float] = None
+    weight: Optional[float] = None
+    activity_level: Optional[ActivityLevel] = None
+    impact_type: Optional[ImpactType] = None
 
 
 class EstimateCreate(EstimateBase):

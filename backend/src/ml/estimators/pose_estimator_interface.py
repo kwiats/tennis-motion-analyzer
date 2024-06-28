@@ -7,3 +7,6 @@ class PoseEstimatorInterface:
 
     def draw_pose(self, image, result):
         raise NotImplementedError
+
+    def process_video(self, input_path, output_path):
+        pass

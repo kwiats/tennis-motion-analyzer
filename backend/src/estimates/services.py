@@ -5,10 +5,11 @@ from sqlalchemy.orm import Session
 
 from src.config import UPLOAD_DIR, PROCESSED_DIR
 from src.estimates.schemas import Estimate, EstimateUpdate
+from src.ml.estimators.pose_estimator_interface import PoseEstimatorInterface
 
 
 class EstimatesService:
-    def __init__(self, estimates_repository, estimator):
+    def __init__(self, estimates_repository, estimator: PoseEstimatorInterface):
         self.estimates_repository = estimates_repository
         self.estimator = estimator
 
@@ -42,7 +43,7 @@ class EstimatesService:
             return Estimate(
                 id=0,
                 age=result.age,
-                sex=result.sex,
+                gender=result.gender,
                 height=result.height,
                 weight=result.weight,
                 activity_level=result.activity_level,
@@ -67,7 +68,7 @@ class EstimatesService:
             return Estimate(
                 id=estimate_id,
                 age=result.age,
-                sex=result.sex,
+                gender=result.gender,
                 height=result.height,
                 weight=result.weight,
                 activity_level=result.activity_level,

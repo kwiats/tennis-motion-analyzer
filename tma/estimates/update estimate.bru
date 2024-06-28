@@ -1,0 +1,27 @@
+meta {
+  name: update estimate
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{url}}api/estimates/predict/{{estimate_id}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "gender": "male",
+    "age": 0,
+    "height": 0,
+    "weight": 0,
+    "activity_level": "low",
+    "impact_type": "forehand"
+  }
+}
+
+
+vars:pre-request {
+  estimate_id: 0
+}
