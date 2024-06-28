@@ -1,3 +1,4 @@
 VERSION.txt
 old-django
 *.pt
+*.db
