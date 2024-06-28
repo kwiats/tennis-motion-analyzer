@@ -3,7 +3,7 @@ import os
 from fastapi import UploadFile, HTTPException
 from sqlalchemy.orm import Session
 
-from src.config import UPLOAD_DIR, PROCESSED_DIR
+from src.config import settings
 from src.estimates.schemas import Estimate, EstimateUpdate
 from src.ml.estimators.pose_estimator_interface import PoseEstimatorInterface
 
@@ -24,12 +24,12 @@ class EstimatesService:
 
     async def predict(self, estimates, file: UploadFile, db: Session) -> Estimate:
         try:
-            os.makedirs(UPLOAD_DIR, exist_ok=True)
-            os.makedirs(PROCESSED_DIR, exist_ok=True)
+            os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
+            os.makedirs(settings.PROCESSED_DIR, exist_ok=True)
 
-            input_path = os.path.join(UPLOAD_DIR, file.filename)
+            input_path = os.path.join(settings.UPLOAD_DIR, file.filename)
             output_path = os.path.join(
-                PROCESSED_DIR,
+                settings.PROCESSED_DIR,
                 "processed_" + os.path.splitext(file.filename)[0] + ".mp4",
             )
             file_content = await file.read()
