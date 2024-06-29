@@ -81,3 +81,8 @@ watchfiles==0.22.0
 websockets==12.0
 sqlalchemy==2.0.31
 pre-commit
+python-magic==0.4.27
+argon2-cffi==23.1.0
+argon2-cffi-bindings==21.2.0
+minio==7.2.7
+pycryptodome==3.20.0
