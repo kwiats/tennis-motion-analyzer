@@ -2,15 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.estimates.routers import estimator_router
+from src.media_storage.routers import media_router
 
 tags_metadata = [
     {
-        "name": "video",
-        "description": "Manage video-related options.",
-    },
-    {
         "name": "estimates",
         "description": "Manage estimate predictions and related data.",
+    },
+    {
+        "name": "media",
+        "description": "Manage media stored in cloud services and related data.",
     },
 ]
 
@@ -31,3 +32,4 @@ app.add_middleware(
 )
 
 app.include_router(estimator_router, prefix="/estimates", tags=["estimates"])
+app.include_router(media_router, prefix="/media", tags=["media"])
