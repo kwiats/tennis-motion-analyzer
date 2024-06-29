@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.orm import Session
 
+from src.core.minio_cloud_storage import MinioCloudStorage
 from src.estimates.repository import EstimatesRepository
 from src.estimates.schemas import EstimateCreate, Estimate, EstimateUpdate
 from src.estimates.services import EstimatesService
@@ -11,12 +12,12 @@ estimator_router = APIRouter()
 
 estimator_repository = EstimatesRepository()
 estimator = MediaPipePoseEstimator()
-
-estimator_service = EstimatesService(estimator_repository, estimator)
+storage = MinioCloudStorage()
+estimator_service = EstimatesService(estimator_repository, estimator, storage)
 
 
 @estimator_router.post("/predict", response_model=Estimate)
-async def upload_video(file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def predict_video(file: UploadFile = File(...), db: Session = Depends(get_db)):
     return await estimator_service.predict(EstimateCreate(), file, db)
 
 

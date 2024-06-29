@@ -4,12 +4,18 @@ from fastapi import UploadFile, HTTPException
 from sqlalchemy.orm import Session
 
 from src.config import settings
+from src.core.interfaces.cloud_storage import ICloudStorage
 from src.estimates.schemas import Estimate, EstimateUpdate
 from src.ml.estimators.pose_estimator_interface import PoseEstimatorInterface
 
 
 class EstimatesService:
-    def __init__(self, estimates_repository, estimator: PoseEstimatorInterface):
+    def __init__(
+        self,
+        estimates_repository,
+        estimator: PoseEstimatorInterface,
+        storage: ICloudStorage,
+    ):
         self.estimates_repository = estimates_repository
         self.estimator = estimator
 
